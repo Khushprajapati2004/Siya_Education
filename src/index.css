@@ -1,0 +1,81 @@
+/* ─── Tailwind Directives ────────────────────────── */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Google Fonts ─────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+/* ─── Reset & Base ─────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans text-dark bg-white;
+  }
+}
+
+/* ─── Utilities ────────────────────────────────── */
+@layer components {
+
+  /* .container replaced with Tailwind container where possible, or keep custom */
+  .custom-container {
+    @apply max-w-[1280px] mx-auto px-6;
+  }
+
+  .section {
+    @apply py-14 md:py-20;
+  }
+
+  .section-tag {
+    @apply font-poppins text-xs font-bold tracking-[2px] uppercase text-orange mb-3;
+  }
+
+  .section-tag.blue {
+    @apply text-blue;
+  }
+
+  .section-title {
+    @apply font-poppins text-[clamp(28px,4vw,42px)] font-extrabold text-dark leading-[1.2];
+  }
+
+  .section-title .accent {
+    @apply text-blue;
+  }
+
+  .section-sub {
+    @apply text-text-muted text-base mt-3 max-w-[560px] mx-auto;
+  }
+
+  /* ─── Buttons ──────────────────────────────────── */
+  .btn {
+    @apply inline-flex items-center gap-2 font-poppins font-semibold text-[15px] px-7 py-[14px] rounded-full border-none cursor-pointer transition-all duration-250 no-underline;
+  }
+
+  .btn-blue {
+    @apply bg-blue text-white hover:bg-blue-deep hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgba(43,64,216,0.35)];
+  }
+
+  .btn-orange {
+    @apply bg-orange text-white hover:bg-orange-dark hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgba(249,112,21,0.35)];
+  }
+
+  .btn-green {
+    @apply bg-[#2e9c6e] text-white hover:bg-[#237e57] hover:-translate-y-0.5;
+  }
+
+  .btn-full {
+    @apply w-full justify-center rounded-sm p-4 text-base;
+  }
+
+  /* ─── Animations ───────────────────────────────── */
+  .fade-in {
+    @apply opacity-0 translate-y-5 transition-all duration-600;
+  }
+
+  .fade-in.visible {
+    @apply opacity-100 translate-y-0;
+  }
+}
