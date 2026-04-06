@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Link, useLocation } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import CourseSelectionModal from './CourseSelectionModal'
 
@@ -8,6 +9,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
+  const location = useLocation()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10)
@@ -24,10 +26,7 @@ export default function Navbar() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1
-      }
+      transition: { staggerChildren: 0.15, delayChildren: 0.1 }
     }
   }
 
@@ -50,6 +49,7 @@ export default function Navbar() {
       ]
     },
     { label: 'Excellence', href: '#excellence' },
+    { label: 'Gallery', href: '/gallery', isPage: true },
     { label: 'Contact', href: '#contact' },
   ]
 
@@ -58,18 +58,18 @@ export default function Navbar() {
       <nav className={`sticky top-0 z-[100] backdrop-blur-[12px] px-6 transition-all duration-300 ${scrolled ? 'bg-white border-b border-black/5 shadow-[0_2px_20px_rgba(0,0,0,0.08)]' : 'bg-transparent border-b border-transparent'}`}>
         <div className="max-w-[1280px] mx-auto flex items-center justify-between h-16">
 
-          {/* Logo - Slides from left */}
-          <motion.a
-            href="#hero"
-            className="flex items-center no-underline"
+          {/* Logo */}
+          <motion.div
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
           >
-            <img src={logo} alt="Siya Education" className="h-14 w-auto object-contain" />
-          </motion.a>
+            <Link to="/" className="flex items-center no-underline">
+              <img src={logo} alt="Siya Education" className="h-14 w-auto object-contain" />
+            </Link>
+          </motion.div>
 
-          {/* Links - Slide from top one by one */}
+          {/* Links */}
           <motion.ul
             className="hidden md:flex items-center gap-8 list-none m-0 p-0"
             variants={containerVariants}
@@ -84,17 +84,30 @@ export default function Navbar() {
                 onMouseEnter={() => link.dropdown && setActiveDropdown(link.label)}
                 onMouseLeave={() => link.dropdown && setActiveDropdown(null)}
               >
-                <a
-                  className="no-underline text-dark text-[15px] font-medium transition-colors duration-200 hover:text-blue flex items-center gap-1.5 py-4"
-                  href={link.href}
-                >
-                  {link.label}
-                  {link.dropdown && (
-                    <svg viewBox="0 0 24 24" width="14" height="14" className={`transition-transform duration-300 ${activeDropdown === link.label ? 'rotate-180 text-blue' : 'text-text-muted'}`} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                  )}
-                </a>
+                {link.isPage ? (
+                  <Link
+                    to={link.href}
+                    className="no-underline text-[15px] font-medium transition-colors duration-200 hover:text-blue flex items-center gap-1.5 py-4"
+                    style={{ color: location.pathname === link.href ? '#2b40d8' : '' }}
+                  >
+                    {link.label}
+                    {location.pathname === link.href && (
+                      <motion.div layoutId="nav-active" className="absolute bottom-0 left-0 right-0 h-[2px] bg-blue rounded-full" />
+                    )}
+                  </Link>
+                ) : (
+                  <a
+                    className="no-underline text-dark text-[15px] font-medium transition-colors duration-200 hover:text-blue flex items-center gap-1.5 py-4"
+                    href={link.href}
+                  >
+                    {link.label}
+                    {link.dropdown && (
+                      <svg viewBox="0 0 24 24" width="14" height="14" className={`transition-transform duration-300 ${activeDropdown === link.label ? 'rotate-180 text-blue' : 'text-text-muted'}`} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    )}
+                  </a>
+                )}
 
                 {/* Dropdown Menu */}
                 {link.dropdown && (
@@ -160,14 +173,20 @@ export default function Navbar() {
         <div className="fixed top-16 left-0 right-0 max-h-[calc(100vh-64px)] overflow-y-auto bg-white border-b border-[#e5e7eb] py-5 px-6 z-[99] flex flex-col gap-4 shadow-[0_8px_24px_rgba(0,0,0,0.08)] animate-[slideDown_0.2s_ease]">
           {NAV_LINKS.map(item => (
             <div key={item.label} className="border-b border-gray-100 pb-3 last:border-0 last:pb-0">
-              <a href={item.href} className="flex items-center justify-between font-poppins font-semibold text-base text-dark no-underline" onClick={item.dropdown ? (e) => { e.preventDefault(); setActiveDropdown(activeDropdown === item.label ? null : item.label) } : closeMenu}>
-                {item.label}
-                {item.dropdown && (
-                  <svg viewBox="0 0 24 24" width="16" height="16" className={`transition-transform duration-300 ${activeDropdown === item.label ? 'rotate-180 text-blue' : 'text-text-muted'}`} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
-                )}
-              </a>
+              {item.isPage ? (
+                <Link to={item.href} className="flex items-center justify-between font-poppins font-semibold text-base no-underline" style={{ color: location.pathname === item.href ? '#2b40d8' : '#111' }} onClick={closeMenu}>
+                  {item.label}
+                </Link>
+              ) : (
+                <a href={item.href} className="flex items-center justify-between font-poppins font-semibold text-base text-dark no-underline" onClick={item.dropdown ? (e) => { e.preventDefault(); setActiveDropdown(activeDropdown === item.label ? null : item.label) } : closeMenu}>
+                  {item.label}
+                  {item.dropdown && (
+                    <svg viewBox="0 0 24 24" width="16" height="16" className={`transition-transform duration-300 ${activeDropdown === item.label ? 'rotate-180 text-blue' : 'text-text-muted'}`} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  )}
+                </a>
+              )}
               {item.dropdown && (
                 <AnimatePresence>
                   {activeDropdown === item.label && (
