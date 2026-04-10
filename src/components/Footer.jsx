@@ -47,7 +47,7 @@ export default function Footer() {
 
       {/* Main content */}
       <motion.div
-        className="max-w-[1180px] mx-auto px-6 pt-16 pb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.8fr_1fr_1.4fr] gap-10"
+        className="max-w-[1280px] mx-auto px-6 pt-16 pb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.8fr_1fr_1.4fr] gap-10"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -134,7 +134,7 @@ export default function Footer() {
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.4 }}
       >
-        <div className="max-w-[1180px] mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="max-w-[1280px] mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-[12.5px] text-white/35 m-0">© 2025 Siya Education. All rights reserved.</p>
           <a
             href="#hero"

@@ -71,7 +71,7 @@ export default function Navbar() {
 
           {/* Links */}
           <motion.ul
-            className="hidden md:flex items-center gap-8 list-none m-0 p-0"
+            className="hidden lg:flex items-center gap-8 list-none m-0 p-0"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -144,10 +144,10 @@ export default function Navbar() {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
           >
-            <button onClick={() => setModalOpen(true)} className="hidden md:flex items-center gap-2 bg-orange text-white px-[22px] py-[10px] rounded-full font-poppins font-semibold text-[14px] transition-all duration-250 hover:bg-orange-dark hover:-translate-y-[1px] cursor-pointer border-none">
+            <button onClick={() => setModalOpen(true)} className="hidden lg:flex items-center gap-2 bg-orange text-white px-[22px] py-[10px] rounded-full font-poppins font-semibold text-[14px] transition-all duration-250 hover:bg-orange-dark hover:-translate-y-[1px] cursor-pointer border-none">
               Enroll Now
             </button>
-            <a href="tel:+919876543210" className="hidden md:flex items-center gap-2 bg-blue text-white px-[22px] py-[10px] rounded-full font-poppins font-semibold text-[14px] no-underline transition-all duration-250 hover:bg-blue-deep hover:-translate-y-[1px]">
+            <a href="tel:+919876543210" className="hidden lg:flex items-center gap-2 bg-blue text-white px-[22px] py-[10px] rounded-full font-poppins font-semibold text-[14px] no-underline transition-all duration-250 hover:bg-blue-deep hover:-translate-y-[1px]">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
                 <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 1.18 2 2 0 014 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" />
               </svg>
@@ -155,7 +155,7 @@ export default function Navbar() {
             </a>
 
             <button
-              className="flex md:hidden flex-col gap-[5px] cursor-pointer bg-none border-none p-1"
+              className="flex lg:hidden flex-col gap-[5px] cursor-pointer bg-none border-none p-1"
               aria-label="Toggle menu"
               onClick={() => setMenuOpen(o => !o)}
             >
